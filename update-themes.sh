@@ -144,10 +144,6 @@ rm -rf  $WORKING_DIR/ThemeResources/frameworks
 cd $WORKING_DIR
 cd packages/apps/CMUpdater
 delete_useless ${common[@]}
-cd $WORKING_DIR/packages/apps/CMUpdater/app/src/main
-delete_useless ${extra[@]}
-cd $WORKING_DIR/packages/apps/CMUpdater/app/
-delete_useless ${extra[@]}
 cd $WORKING_DIR
 process_all ${theme_packages[@]}
 echo "Cleaning target folders"

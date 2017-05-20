@@ -68,7 +68,7 @@ declare -a common=('common.mk' '.classpath' '.git' '.gitignore' '.idea' '.projec
                    'src_pd' 'src_pd_gcam' 'tests_camera' 'version.mk' 'COPYING' 'ReadMe.md' 'WallpaperPicker' 'protos' 'util' 'fill_screens.py' 'print_db.py' 'update_gallery_files.py' 'update_system_wallpaper_cropper.py'
                    'cyanoden-dsp' 'emailcommon' 'transition' 'TestCommon' 'provider_src' 'gallerycommon' 'jni_jpegstream' 'apptests' 'libs' 'info_lookup' 'src_plugin' 'perf-tests' 'app-perf-tests' 'src-N' 'src-pre-N' 'build-app.gradle' 'build-library.gradle' 'local.properties' 'gradlew.bat' 'gradlew' 'gradle' 'build.gradle' '.idea' 'settings.gradle' 'gradle.properties' 'proguard-rules.pro' 'v' '*.jar' 'build' 'ForceProguard.mk' 'proguard-release.flags' 'Readme.md')
 
-declare -a packages=('StatementService' 'BackupRestoreConfirmation' 'CaptivePortalLogin' 'CarbonStats' 'DefaultContainerService' 'ExternalStorageProvider' 'FakeOemFeatures' 'FusedLocation' 'InputDevices' 'Keyguard' 'PrintSpooler' 'SettingsProvider'
+declare -a packages=('StatementService' 'BackupRestoreConfirmation' 'CaptivePortalLogin' 'CarbonStats' 'DefaultContainerService' 'ExternalStorageProvider' 'FakeOemFeatures' 'FusedLocation' 'InputDevices' 'Keyguard' 'PrintSpooler' 'Quarks' 'SettingsProvider'
                      'SharedStorageBackup' 'Shell' 'VpnDialogs' 'WAPPushManager' 'WAPPushManager' 'WallpaperCropper' 'services' 'WallpaperBackup' 'PrintRecommendationService' 'Osu' 'MtpDocumentsProvider' 'ExtShared' 'ExtServices' 'CtsShim')
 
 declare -a res=('Android.mk' 'AndroidManifest.xml' 'MODULE_LICENSE_APACHE2' 'NOTICE' 'lint.xml' 'assets' 'menu*' 'values-*' 'xml*' 'interpolator' 'raw*' 'anim*' 'animator' 'transition' 'MakeJavaSymbols.sed' 'tests' 'src' 'build.gradle' 'proguard.flags' 'setting' 'gradlew' 'gradlew.bat')
@@ -144,6 +144,12 @@ rm -rf  $WORKING_DIR/ThemeResources/frameworks
 cd $WORKING_DIR
 cd packages/apps/CMUpdater
 delete_useless ${common[@]}
+cd packages/apps/Quarks
+delete_useless ${common[@]}
+cd packages/apps/Quarks/app
+delete_useless ${common[@]}
+cd packages/apps/Quarks/app/src/main
+delete_useless ${res[@]}
 cd $WORKING_DIR
 process_all ${theme_packages[@]}
 echo "Cleaning target folders"

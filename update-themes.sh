@@ -144,6 +144,12 @@ rm -rf  $WORKING_DIR/ThemeResources/frameworks
 cd $WORKING_DIR
 cd packages/apps/CMUpdater
 delete_useless ${common[@]}
+cd $WORKING_DIR/packages/apps/Quarks
+delete_useless ${common[@]}
+cd $WORKING_DIR/packages/apps/Quarks/app
+delete_useless ${extra[@]}
+cd $WORKING_DIR/packages/apps/Quarks/app/src/main
+delete_useless ${common[@]}
 cd $WORKING_DIR
 process_all ${theme_packages[@]}
 echo "Cleaning target folders"
@@ -155,6 +161,7 @@ echo "Copying all files to $WORKING_DIR/ThemeResources"
 cp -r $WORKING_DIR/packages/apps/CMUpdater $WORKING_DIR/ThemeResources/packages/apps/
 copy_all ${theme_packages[@]}
 cp -r $WORKING_DIR/frameworks/base/core $WORKING_DIR/frameworks/base/packages $WORKING_DIR/ThemeResources/frameworks
+cp -r $WORKING_DIR/packages/apps/Quarks $WORKING_DIR/ThemeResources/packages/apps/
 cd /home/darjwx/carbon/ThemeResources
 cd $WORKING_DIR/ThemeResources/packages/apps/Dialer/InCallUI
 delete_useless ${res[@]}

@@ -73,4 +73,6 @@
     <color name="text_color_black">@android:color/black</color>
     <color name="text_color_white">@android:color/white</color>
     <color name="background_color_white">@android:color/white</color>
+    <color name="action_picker_fab_background">@*android:color/accent_device_default_light</color>
+
 </resources>

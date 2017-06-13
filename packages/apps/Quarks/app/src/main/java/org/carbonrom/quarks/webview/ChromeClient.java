@@ -16,7 +16,6 @@
 package org.carbonrom.quarks.webview;
 
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -25,28 +24,28 @@ import android.webkit.GeolocationPermissions;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import org.carbonrom.quarks.MainActivity;
 import org.carbonrom.quarks.R;
 import org.carbonrom.quarks.history.HistoryDatabaseHandler;
 import org.carbonrom.quarks.history.HistoryItem;
-import org.carbonrom.quarks.ui.EditTextExt;
+
 
 class ChromeClient extends WebChromeClient {
 
-    private final Context mContext;
+    private final WebViewExtActivity mActivity;
     private final HistoryDatabaseHandler mHistoryHandler;
     private final boolean mIncognito;
 
-    private EditTextExt mEditTextExt;
+    private EditText mEditText;
     private ProgressBar mProgressBar;
 
-    ChromeClient(Context context, boolean incognito) {
+    ChromeClient(WebViewExtActivity activity, boolean incognito) {
         super();
-        mContext = context;
-        mHistoryHandler = new HistoryDatabaseHandler(context);
+        mActivity = activity;
+        mHistoryHandler = new HistoryDatabaseHandler(activity);
         mIncognito = incognito;
     }
 
@@ -59,24 +58,16 @@ class ChromeClient extends WebChromeClient {
 
     @Override
     public void onReceivedTitle(WebView view, String title) {
-        String url = view.getUrl();
-        mEditTextExt.setTitle(title);
-        mEditTextExt.setUrl(url);
-        if (url.startsWith("https://")) {
-            mEditTextExt.setText(title);
-        } else {
-            mEditTextExt.setText(url);
-        }
-
+        mEditText.setText(view.getUrl());
         if (!mIncognito) {
-            mHistoryHandler.addItem(new HistoryItem(title, url));
+            mHistoryHandler.addItem(new HistoryItem(title, view.getUrl()));
         }
     }
 
     @Override
     public void onReceivedIcon(WebView view, Bitmap icon) {
-        ((MainActivity) mContext).setColor(icon, mIncognito);
-        ((MainActivity) mContext).setFavicon();
+        mActivity.setColor(icon, mIncognito);
+        mActivity.setFavicon();
     }
 
     @Override
@@ -84,9 +75,9 @@ class ChromeClient extends WebChromeClient {
                                      FileChooserParams params) {
         Intent intent = params.createIntent();
         try {
-            ((MainActivity) mContext).startActivityForResult(intent, MainActivity.FILE_CHOOSER_REQ);
+            mActivity.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(mContext, mContext.getString(R.string.error_no_activity_found),
+            Toast.makeText(mActivity, mActivity.getString(R.string.error_no_activity_found),
                     Toast.LENGTH_LONG).show();
             return false;
         }
@@ -96,16 +87,15 @@ class ChromeClient extends WebChromeClient {
     @Override
     public void onGeolocationPermissionsShowPrompt(String origin,
                                                    GeolocationPermissions.Callback callback) {
-        MainActivity activity = ((MainActivity) mContext);
-        if (!activity.hasLocationPermission()) {
-            activity.requestLocationPermission();
+        if (!mActivity.hasLocationPermission()) {
+            mActivity.requestLocationPermission();
         } else {
             callback.invoke(origin, true, false);
         }
     }
 
-    void bindEditText(EditTextExt editText) {
-        mEditTextExt = editText;
+    void bindEditText(EditText editText) {
+        mEditText = editText;
     }
 
     void bindProgressBar(ProgressBar progressBar) {

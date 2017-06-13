@@ -56,13 +56,28 @@ public class HistoryDatabaseHandler extends SQLiteOpenHelper {
             item.setId(System.currentTimeMillis());
         }
 
-        ContentValues values = new ContentValues();
-        values.put(KEY_ID, item.getId());
-        values.put(KEY_TITLE, item.getTitle());
-        values.put(KEY_URL, item.getUrl());
-
         SQLiteDatabase db = getWritableDatabase();
-        db.insert(DB_TABLE_HISTORY, null, values);
+        String[] projection = {KEY_ID};
+        String selection = KEY_URL + " = ?";
+        String[] selectionArgs = {item.getUrl()};
+        String sortOrder = KEY_ID + " DESC";
+        Cursor cursor = db.query(DB_TABLE_HISTORY, projection, selection, selectionArgs,
+                null, null, sortOrder);
+
+        if (cursor.moveToFirst()) {
+            ContentValues values = new ContentValues();
+            values.put(KEY_ID, item.getId());
+            String updateSelection = KEY_ID + " = ?";
+            String[] updateSelectionArgs = { cursor.getString(0) };
+            db.update(DB_TABLE_HISTORY, values, updateSelection, updateSelectionArgs);
+        } else {
+            ContentValues values = new ContentValues();
+            values.put(KEY_ID, item.getId());
+            values.put(KEY_TITLE, item.getTitle());
+            values.put(KEY_URL, item.getUrl());
+            db.insert(DB_TABLE_HISTORY, null, values);
+        }
+        cursor.close();
         db.close();
     }
 
@@ -74,8 +89,10 @@ public class HistoryDatabaseHandler extends SQLiteOpenHelper {
 
     List<HistoryItem> getAllItems() {
         List<HistoryItem> list = new ArrayList<>();
-        SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + DB_TABLE_HISTORY, null);
+        SQLiteDatabase db = getReadableDatabase();
+        String[] projection = {KEY_ID, KEY_TITLE, KEY_URL};
+        String sortOrder = KEY_ID + " DESC";
+        Cursor cursor = db.query(DB_TABLE_HISTORY, projection, null, null, null, null, sortOrder);
 
         if (cursor.moveToFirst()) {
             do {

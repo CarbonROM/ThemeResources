@@ -16,7 +16,6 @@
 package org.carbonrom.quarks;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.DownloadManager;
 import android.content.Context;
@@ -41,7 +40,6 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.widget.CardView;
@@ -60,6 +58,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.CookieManager;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -72,14 +71,14 @@ import org.carbonrom.quarks.utils.AdBlocker;
 import org.carbonrom.quarks.utils.PrefsUtils;
 import org.carbonrom.quarks.utils.UiUtils;
 import org.carbonrom.quarks.webview.WebViewExt;
+import org.carbonrom.quarks.webview.WebViewExtActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity implements View.OnTouchListener,
+public class MainActivity extends WebViewExtActivity implements View.OnTouchListener,
         View.OnScrollChangeListener {
-    public static final int FILE_CHOOSER_REQ = 421;
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String PROVIDER = "org.carbonrom.quarks.fileprovider";
     private static final String EXTRA_INCOGNITO = "extra_incognito";
@@ -211,7 +210,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     protected void onResume() {
         super.onResume();
         mWebView.onResume();
-        CookieManager.getInstance().setAcceptCookie(PrefsUtils.getCookie(this));
+        CookieManager.getInstance()
+                .setAcceptCookie(!mWebView.isIncognito() && PrefsUtils.getCookie(this));
         if (PrefsUtils.getLookLock(this)) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                     WindowManager.LayoutParams.FLAG_SECURE);
@@ -452,8 +452,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     public void showSheetMenu(String url, boolean shouldAllowDownload) {
         final BottomSheetDialog sheet = new BottomSheetDialog(this);
 
-        @SuppressLint("InflateParams")
-        View view = getLayoutInflater().inflate(R.layout.sheet_actions, null);
+        View view = getLayoutInflater().inflate(R.layout.sheet_actions, new LinearLayout(this));
         View tabLayout = view.findViewById(R.id.sheet_new_tab);
         View shareLayout = view.findViewById(R.id.sheet_share);
         View favouriteLayout = view.findViewById(R.id.sheet_favourite);

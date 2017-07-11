@@ -38,6 +38,10 @@
   <string name="menu_download">Last ned</string>
   <!-- Menu action: open selected link in a new tab -->
   <string name="menu_in_new_tab">Åpne i ny fane</string>
+  <!-- Menu action: enable desktop mode -->
+  <string name="menu_desktop_mode">Bytt til skrivebordside</string>
+  <!-- Menu action: enable phone mode -->
+  <string name="menu_mobile_mode">Bytt til mobilside</string>
   <!-- Share webPage: "send to" dialog title -->
   <string name="share_title">Send til</string>
   <!-- Dialog action: dismiss -->
@@ -45,7 +49,7 @@
   <!-- Download dialog: title -->
   <string name="download_title">Last ned fil</string>
   <!-- Download dialog: message -->
-  <string name="download_message">Ønsker du å laste ned %1$s til SD-kortet?</string>
+  <string name="download_message">Vil du laste ned %1$s?</string>
   <!-- Download dialog: button that starts the download -->
   <string name="download_positive">Last ned</string>
   <!-- Permission error dialog: title -->
@@ -67,7 +71,7 @@
   <!-- Settings: select home page dialog title -->
   <string name="pref_start_page_dialog_title">Velg hjemmeside</string>
   <!-- Settings: select home page dialog message -->
-  <string name="pref_start_page_dialog_message">Skriv hjemmeside-URL</string>
+  <string name="pref_start_page_dialog_message">Angi hjemmeside-adressen</string>
   <!-- Settings: reset home page dialog action -->
   <string name="pref_start_page_dialog_reset">Tilbakestill</string>
   <!-- Settings: privacy and security category -->
@@ -96,6 +100,13 @@
   <string name="pref_cookie_clear">Tøm informasjonskapsler</string>
   <!-- Settings: clear cookie toast confirmation -->
   <string name="pref_cookie_clear_done">Tømte alle informasjonskapsler</string>
+  <!-- Settings: do not track preference title -->
+  <string name="pref_do_not_track_title">Ikke-Spor-Meg</string>
+  <!-- Settings: do not track preference summary -->
+  <string name="pref_do_not_track_summary">Send en Ikke-Spor-Meg -forespørsel til alle nettsider du besøker</string>
+  <!-- Settings: save form data title -->
+  <string name="pref_save_form_data_title">Lagre skjemadata</string>
+  <!-- Settings: suggestions provider title -->
   <!-- History: title -->
   <string name="history_title">Historikk</string>
   <!-- History: empty status text -->
@@ -121,13 +132,25 @@
   <!-- Favorite: edit dialog: title of the favorite -->
   <string name="favorite_edit_title">Tittel</string>
   <!-- Favorite: edit dialog: url of the favorite-->
-  <string name="favorite_edit_url">URL</string>
+  <string name="favorite_edit_url">Nettadresse</string>
   <!-- Favorite: edit dialog positive button that save changes -->
   <string name="favorite_edit_positive">Rediger</string>
   <!-- Favorite: edit dialog button that deletes the selected favorite -->
   <string name="favorite_edit_delete">Slett</string>
   <!-- Favorite: edit dialog: invalid url error message -->
-  <string name="favorite_edit_error">Angi en gyldig URL</string>
+  <string name="favorite_edit_error">Angi en gyldig nettadresse</string>
   <!-- No activity found to open the given url error -->
   <string name="error_no_activity_found">Ingen app kan tolke denne lenken</string>
+  <!-- Auth dialog: title -->
+  <string name="auth_dialog_title">Autentisering kreves</string>
+  <!-- Auth dialog: username field -->
+  <string name="auth_dialog_username">Brukernavn:</string>
+  <!-- Auth dialog: password field -->
+  <string name="auth_dialog_password">Passord:</string>
+  <!-- Auth dialog: detail -->
+  <string name="auth_dialog_detail">%1$s krever et brukernavn og passord.</string>
+  <!-- Auth dialog: login button -->
+  <string name="auth_dialog_login">Logg inn</string>
+  <!-- Launcher shortcut: new incognito tab -->
+  <string name="shortcut_new_incognito_tab">Ny inkognitofane</string>
 </resources>

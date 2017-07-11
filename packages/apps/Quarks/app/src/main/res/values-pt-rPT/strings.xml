@@ -19,7 +19,7 @@
   <!-- Menu action: create new tab -->
   <string name="menu_new_tab">Novo separador</string>
   <!-- Menu action: create new incognito tab -->
-  <string name="menu_incognito">Separador incógnito</string>
+  <string name="menu_incognito">Separador privado</string>
   <!-- Menu action: reload current page -->
   <string name="menu_reload">Recarregar</string>
   <!-- Menu action: add current page to favorites -->
@@ -38,6 +38,10 @@
   <string name="menu_download">Transferir</string>
   <!-- Menu action: open selected link in a new tab -->
   <string name="menu_in_new_tab">Abrir num novo separador</string>
+  <!-- Menu action: enable desktop mode -->
+  <string name="menu_desktop_mode">Mudar para a versão de computador</string>
+  <!-- Menu action: enable phone mode -->
+  <string name="menu_mobile_mode">Mudar para a versão móvel</string>
   <!-- Share webPage: "send to" dialog title -->
   <string name="share_title">Enviar para</string>
   <!-- Dialog action: dismiss -->
@@ -45,16 +49,17 @@
   <!-- Download dialog: title -->
   <string name="download_title">Transferir ficheiro</string>
   <!-- Download dialog: message -->
-  <string name="download_message">Pretende transferir %1$s para o cartão SD?</string>
+  <string name="download_message">Deseja transferir %1$s?</string>
   <!-- Download dialog: button that starts the download -->
   <string name="download_positive">Transferir</string>
   <!-- Permission error dialog: title -->
   <string name="permission_error_title">Erro de permissão</string>
   <!-- Permission error dialog: message for denied storage access-->
+  <string name="permission_error_storage">O Navegador precisa de acesso ao armazenamento para transferir ficheiros. Por favor, conceda a permissão para guardar ficheiros da internet</string>
   <!-- Permission error dialog: button that triggers permission request again -->
   <string name="permission_error_ask_again">Voltar a perguntar</string>
   <!-- Permission error snackBar: the permission has been denied until user enables it in settings -->
-  <string name="permission_error_forever">Permissão negada para sempre. Por favor, conceda-a nas definições</string>
+  <string name="permission_error_forever">Permissão negada permanentemente. Por favor, conceda-a nas definições</string>
   <!-- Shortcut: the current webPage has been added to the launcher -->
   <string name="shortcut_added">Adicionado ao ecrã inicial</string>
   <!-- Settings: title -->
@@ -95,6 +100,13 @@
   <string name="pref_cookie_clear">Excluir cookies</string>
   <!-- Settings: clear cookie toast confirmation -->
   <string name="pref_cookie_clear_done">Todas as cookies foram apagadas</string>
+  <!-- Settings: do not track preference title -->
+  <string name="pref_do_not_track_title">Não monitorizar</string>
+  <!-- Settings: do not track preference summary -->
+  <string name="pref_do_not_track_summary">Enviar às paginas que visitar um pedido para não ser monitorizado</string>
+  <!-- Settings: save form data title -->
+  <string name="pref_save_form_data_title">Guardar dados do formulário</string>
+  <!-- Settings: suggestions provider title -->
   <!-- History: title -->
   <string name="history_title">Histórico</string>
   <!-- History: empty status text -->
@@ -104,6 +116,7 @@
   <!-- History: delete history dialog title -->
   <string name="history_delete_title">Apagar histórico</string>
   <!-- History: delete history dialog warning message -->
+  <string name="history_delete_message">Irá apagar todo o histórico. Esta ação não pode ser revertida. Deseja continuar?</string>
   <!-- History: delete history dialog button that erases all the history -->
   <string name="history_delete_positive">Apagar</string>
   <!-- History: delete history "working" dialog-->
@@ -128,4 +141,16 @@
   <string name="favorite_edit_error">Insira um URL válido</string>
   <!-- No activity found to open the given url error -->
   <string name="error_no_activity_found">Não tem aplicações que possam abrir a ligação</string>
+  <!-- Auth dialog: title -->
+  <string name="auth_dialog_title">Autenticação necessária</string>
+  <!-- Auth dialog: username field -->
+  <string name="auth_dialog_username">Nome de Utilizador:</string>
+  <!-- Auth dialog: password field -->
+  <string name="auth_dialog_password">Palavra-passe:</string>
+  <!-- Auth dialog: detail -->
+  <string name="auth_dialog_detail">%1$s requer um nome de utilizador e palavra-passe.</string>
+  <!-- Auth dialog: login button -->
+  <string name="auth_dialog_login">Iniciar sessão</string>
+  <!-- Launcher shortcut: new incognito tab -->
+  <string name="shortcut_new_incognito_tab">Novo separador privado</string>
 </resources>

@@ -24,12 +24,11 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v7.graphics.Palette;
 import android.util.TypedValue;
-
-import org.carbonrom.quarks.R;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 public final class UiUtils {
 
@@ -46,28 +45,26 @@ public final class UiUtils {
         return hsl[2] > 0.5f;
     }
 
-    public static int getColor(Context context, Bitmap bitmap, boolean incognito, boolean night) {
+    public static int getColor(Bitmap bitmap, boolean incognito, boolean night) {
         Palette palette = Palette.from(bitmap).generate();
-        int primary = ContextCompat.getColor(context, R.color.colorPrimary);
-        int alternative = ContextCompat.getColor(context, R.color.colorIncognito);
+        final int fallback = Color.TRANSPARENT;
         int colorVibrant = night ?
-                palette.getDarkVibrantColor(primary) : palette.getVibrantColor(primary);
+                palette.getDarkVibrantColor(fallback) : palette.getVibrantColor(fallback);
         int colorIncognito = night ?
-                palette.getDarkMutedColor(alternative) : palette.getMutedColor(alternative);
+                palette.getDarkMutedColor(fallback) : palette.getMutedColor(fallback);
         return incognito ?
                 colorIncognito : colorVibrant;
     }
 
-    public static Bitmap getShortcutIcon(Context context, Bitmap bitmap) {
+    public static Bitmap getShortcutIcon(Bitmap bitmap, int themeColor) {
         Bitmap out = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getWidth(),
                 Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(out);
-        int color = getColor(context, bitmap, false, false);
         Paint paint = new Paint();
         Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getWidth());
         float radius = bitmap.getWidth() / 2;
         paint.setAntiAlias(true);
-        paint.setColor(color);
+        paint.setColor(themeColor);
         canvas.drawARGB(0, 0, 0, 0);
         canvas.drawCircle(radius, radius, radius, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
@@ -89,4 +86,27 @@ public final class UiUtils {
     public static float dpToPx(Resources res, float dp) {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.getDisplayMetrics());
     }
+
+    /**
+     * Shows the software keyboard.
+     *
+     * @param view The currently focused {@link View}, which would receive soft keyboard input.
+     */
+    public static void showKeyboard(View view) {
+        InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInputFromWindow(view.getWindowToken(), 0, 0);
+    }
+
+    /**
+     * Hides the keyboard.
+     *
+     * @param view The {@link View} that is currently accepting input.
+     */
+    public static void hideKeyboard(View view) {
+        InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
 }

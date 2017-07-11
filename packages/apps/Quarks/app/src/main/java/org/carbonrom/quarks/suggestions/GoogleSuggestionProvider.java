@@ -13,38 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.carbonrom.quarks.history;
 
-public class HistoryItem {
+package org.carbonrom.quarks.suggestions;
 
-    private final String title;
-    private final String url;
-    private long id = -1;
+import android.support.annotation.NonNull;
 
-    public HistoryItem(String title, String url) {
-        this.title = title;
-        this.url = url;
+/**
+ * Search suggestions provider for Google search engine.
+ */
+class GoogleSuggestionProvider extends SuggestionProvider {
+    GoogleSuggestionProvider() {
+        super("UTF-8");
     }
 
-    HistoryItem(long id, String title, String url) {
-        this.id = id;
-        this.title = title;
-        this.url = url;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    String getUrl() {
-        return url;
+    @NonNull
+    protected String createQueryUrl(@NonNull String query,
+                                    @NonNull String language) {
+        return "https://www.google.com/complete/search?client=android&oe=utf8&ie=utf8"
+                + "&hl=" + language + "&q=" + query;
     }
 }

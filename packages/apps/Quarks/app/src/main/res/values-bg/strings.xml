@@ -38,6 +38,10 @@
   <string name="menu_download">Изтегли</string>
   <!-- Menu action: open selected link in a new tab -->
   <string name="menu_in_new_tab">Отвори в нов раздел</string>
+  <!-- Menu action: enable desktop mode -->
+  <string name="menu_desktop_mode">Превключи на версията за компютър</string>
+  <!-- Menu action: enable phone mode -->
+  <string name="menu_mobile_mode">Превключи на мобилна версия</string>
   <!-- Share webPage: "send to" dialog title -->
   <string name="share_title">Изпрати до</string>
   <!-- Dialog action: dismiss -->
@@ -45,7 +49,7 @@
   <!-- Download dialog: title -->
   <string name="download_title">Изтегли файла</string>
   <!-- Download dialog: message -->
-  <string name="download_message">Искате ли да изтеглите %1$s на картата памет?</string>
+  <string name="download_message">Искате ли да изтеглите %1$s?</string>
   <!-- Download dialog: button that starts the download -->
   <string name="download_positive">Изтегли</string>
   <!-- Permission error dialog: title -->
@@ -96,6 +100,14 @@
   <string name="pref_cookie_clear">Изчисти бисквитките</string>
   <!-- Settings: clear cookie toast confirmation -->
   <string name="pref_cookie_clear_done">Всички бисквитки са изчистени</string>
+  <!-- Settings: do not track preference title -->
+  <string name="pref_do_not_track_title">Без проследяване</string>
+  <!-- Settings: do not track preference summary -->
+  <string name="pref_do_not_track_summary">Изпраща искане до уеб сайтовете да не преследват дейността</string>
+  <!-- Settings: save form data title -->
+  <string name="pref_save_form_data_title">Запазване на данни за формуляри</string>
+  <!-- Settings: suggestions provider title -->
+  <string name="pref_suggestions_provider">Предложения на доставчици</string>
   <!-- History: title -->
   <string name="history_title">История</string>
   <!-- History: empty status text -->
@@ -121,7 +133,7 @@
   <!-- Favorite: edit dialog: title of the favorite -->
   <string name="favorite_edit_title">Заглавие</string>
   <!-- Favorite: edit dialog: url of the favorite-->
-  <string name="favorite_edit_url">URL</string>
+  <string name="favorite_edit_url">URL АДРЕС</string>
   <!-- Favorite: edit dialog positive button that save changes -->
   <string name="favorite_edit_positive">Редакция</string>
   <!-- Favorite: edit dialog button that deletes the selected favorite -->
@@ -130,4 +142,16 @@
   <string name="favorite_edit_error">Въведете валиден URL адрес</string>
   <!-- No activity found to open the given url error -->
   <string name="error_no_activity_found">Няма приложение което да отвори тази връзка</string>
+  <!-- Auth dialog: title -->
+  <string name="auth_dialog_title">Изисква Удостоверяване</string>
+  <!-- Auth dialog: username field -->
+  <string name="auth_dialog_username">Потребителско име:</string>
+  <!-- Auth dialog: password field -->
+  <string name="auth_dialog_password">Парола:</string>
+  <!-- Auth dialog: detail -->
+  <string name="auth_dialog_detail">%1$s изисква потребителско име и парола.</string>
+  <!-- Auth dialog: login button -->
+  <string name="auth_dialog_login">Вход</string>
+  <!-- Launcher shortcut: new incognito tab -->
+  <string name="shortcut_new_incognito_tab">Нов раздел в режим „Инкогнито“</string>
 </resources>

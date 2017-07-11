@@ -20,17 +20,17 @@
         <item>Bing</item>
         <item>DuckDuckGo</item>
         <item>Google</item>
+        <item>Google encrypted</item>
         <item>Yahoo</item>
-        <item>StartPage</item>
     </string-array>
 
     <string-array name="pref_search_engine_entryvalues" translatable="false">
         <item>https://www.baidu.com/s?wd={searchTerms}</item>
         <item>https://www.bing.com/search?q={searchTerms}</item>
         <item>https://duckduckgo.com/?q={searchTerms}</item>
+        <item>https://google.com/search?ie=UTF-8&amp;source=android-browser&amp;q={searchTerms}</item>
         <item>https://encrypted.google.com/search?q={searchTerms}</item>
         <item>https://search.yahoo.com/p={searchTerms}</item>
-        <item>https://www.startpage.com/do/dsearch?query={searchTerms}&amp;cat=web&amp;pl=opensearch&amp;language=english</item>
     </string-array>
 
     <string-array name="pref_incognito_policy_entries">

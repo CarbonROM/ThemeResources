@@ -22,21 +22,16 @@ import android.net.Uri;
 import android.view.View;
 import android.webkit.GeolocationPermissions;
 import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.carbonrom.quarks.R;
-import org.carbonrom.quarks.history.HistoryDatabaseHandler;
-import org.carbonrom.quarks.history.HistoryItem;
+import org.carbonrom.quarks.history.HistoryProvider;
 
-
-class ChromeClient extends WebChromeClient {
-
+class ChromeClient extends WebChromeClientCompat {
     private final WebViewExtActivity mActivity;
-    private final HistoryDatabaseHandler mHistoryHandler;
     private final boolean mIncognito;
 
     private EditText mEditText;
@@ -45,7 +40,6 @@ class ChromeClient extends WebChromeClient {
     ChromeClient(WebViewExtActivity activity, boolean incognito) {
         super();
         mActivity = activity;
-        mHistoryHandler = new HistoryDatabaseHandler(activity);
         mIncognito = incognito;
     }
 
@@ -57,17 +51,22 @@ class ChromeClient extends WebChromeClient {
     }
 
     @Override
+    public void onThemeColorChanged(WebView view, int color) {
+        mActivity.onThemeColorSet(color);
+        super.onThemeColorChanged(view, color);
+    }
+
+    @Override
     public void onReceivedTitle(WebView view, String title) {
         mEditText.setText(view.getUrl());
         if (!mIncognito) {
-            mHistoryHandler.addItem(new HistoryItem(title, view.getUrl()));
+            HistoryProvider.addOrUpdateItem(mActivity.getContentResolver(), title, view.getUrl());
         }
     }
 
     @Override
     public void onReceivedIcon(WebView view, Bitmap icon) {
-        mActivity.setColor(icon, mIncognito);
-        mActivity.setFavicon();
+        mActivity.onFaviconLoaded(icon);
     }
 
     @Override

@@ -38,6 +38,10 @@
   <string name="menu_download">Stiahnuť</string>
   <!-- Menu action: open selected link in a new tab -->
   <string name="menu_in_new_tab">Otvoriť na novej karte</string>
+  <!-- Menu action: enable desktop mode -->
+  <string name="menu_desktop_mode">Prepnúť na klasickú verziu webu</string>
+  <!-- Menu action: enable phone mode -->
+  <string name="menu_mobile_mode">Prepnúť na mobilnú verziu webu</string>
   <!-- Share webPage: "send to" dialog title -->
   <string name="share_title">Odoslať</string>
   <!-- Dialog action: dismiss -->
@@ -45,7 +49,7 @@
   <!-- Download dialog: title -->
   <string name="download_title">Stiahnuť súbor</string>
   <!-- Download dialog: message -->
-  <string name="download_message">Chcete stiahnuť %1$s na SD kartu?</string>
+  <string name="download_message">Chcete sttiahnuť %1$s?</string>
   <!-- Download dialog: button that starts the download -->
   <string name="download_positive">Stiahnuť</string>
   <!-- Permission error dialog: title -->
@@ -77,9 +81,9 @@
   <!-- Settings: lookLock summary -->
   <string name="pref_looklock_summary">Zabrániť iným aplikáciám čítať obsah z prehliadača</string>
   <!-- Settings: javascript preference title -->
-  <string name="pref_js_title">JavaSkript</string>
+  <string name="pref_js_title">JavaScript</string>
   <!-- Settings: javascript preference summary -->
-  <string name="pref_js_summary">Povoliť JavaSkript</string>
+  <string name="pref_js_summary">Povoliť JavaScript</string>
   <!-- Settings: location preference title -->
   <string name="pref_location_title">Poloha</string>
   <!-- Settings: location preference summary. Note that this doesn't allow permission access to the websites, but just allows the possibility of requesting access to it -->
@@ -96,12 +100,20 @@
   <string name="pref_cookie_clear">Vymazať súbory cookie</string>
   <!-- Settings: clear cookie toast confirmation -->
   <string name="pref_cookie_clear_done">Vymazať všetky súbory cookie</string>
+  <!-- Settings: do not track preference title -->
+  <string name="pref_do_not_track_title">Funkcia Nesledovať</string>
+  <!-- Settings: do not track preference summary -->
+  <string name="pref_do_not_track_summary">Odošle webovým stránkam požiadavku, aby vás nesledovali</string>
+  <!-- Settings: save form data title -->
+  <string name="pref_save_form_data_title">Ukladať údaje formulárov</string>
+  <!-- Settings: suggestions provider title -->
+  <string name="pref_suggestions_provider">Poskytovateľ návrhov</string>
   <!-- History: title -->
   <string name="history_title">História</string>
   <!-- History: empty status text -->
   <string name="history_empty">Nič tu nie je, prechádzaním internetu uvidíte svoju históriu</string>
   <!-- History: date format for items. EEEE = day (Monday), MMMM = month (January), yyyy = year (1970), HH = hour (12), mm = minutes (30) -->
-  <string name="history_date_format">EEEE MMMM dd yyyy, HH:mm</string>
+  <string name="history_date_format">EEEE, dd. MMMM yyyy, HH:mm</string>
   <!-- History: delete history dialog title -->
   <string name="history_delete_title">Vymazať históriu</string>
   <!-- History: delete history dialog warning message -->
@@ -121,7 +133,7 @@
   <!-- Favorite: edit dialog: title of the favorite -->
   <string name="favorite_edit_title">Názov</string>
   <!-- Favorite: edit dialog: url of the favorite-->
-  <string name="favorite_edit_url">Adresa Url</string>
+  <string name="favorite_edit_url">URL adresa</string>
   <!-- Favorite: edit dialog positive button that save changes -->
   <string name="favorite_edit_positive">Editovať</string>
   <!-- Favorite: edit dialog button that deletes the selected favorite -->
@@ -130,4 +142,16 @@
   <string name="favorite_edit_error">Vložte platnú adresu url</string>
   <!-- No activity found to open the given url error -->
   <string name="error_no_activity_found">K tomuto odkazu nie je priradená žiadna aplikácia</string>
+  <!-- Auth dialog: title -->
+  <string name="auth_dialog_title">Vyžaduje sa overenie</string>
+  <!-- Auth dialog: username field -->
+  <string name="auth_dialog_username">Meno používateľa:</string>
+  <!-- Auth dialog: password field -->
+  <string name="auth_dialog_password">Heslo:</string>
+  <!-- Auth dialog: detail -->
+  <string name="auth_dialog_detail">%1$s vyžaduje užívateľské meno a heslo.</string>
+  <!-- Auth dialog: login button -->
+  <string name="auth_dialog_login">Prihlásiť sa</string>
+  <!-- Launcher shortcut: new incognito tab -->
+  <string name="shortcut_new_incognito_tab">Nová karta v režime inkognito</string>
 </resources>

@@ -15,7 +15,9 @@
      limitations under the License.
 -->
 <resources>
+  <string name="app_name">Webbläsare</string>
   <!-- Menu action: create new tab -->
+  <string name="menu_new_tab">Ny flik</string>
   <!-- Menu action: create new incognito tab -->
   <!-- Menu action: reload current page -->
   <!-- Menu action: add current page to favorites -->
@@ -26,6 +28,8 @@
   <!-- Menu action: show settings -->
   <!-- Menu action: download selected file / image -->
   <!-- Menu action: open selected link in a new tab -->
+  <!-- Menu action: enable desktop mode -->
+  <!-- Menu action: enable phone mode -->
   <!-- Share webPage: "send to" dialog title -->
   <!-- Dialog action: dismiss -->
   <!-- Download dialog: title -->
@@ -55,6 +59,10 @@
   <!-- Settings: advanced share preference summary -->
   <!-- Settings: clear cookie -->
   <!-- Settings: clear cookie toast confirmation -->
+  <!-- Settings: do not track preference title -->
+  <!-- Settings: do not track preference summary -->
+  <!-- Settings: save form data title -->
+  <!-- Settings: suggestions provider title -->
   <!-- History: title -->
   <!-- History: empty status text -->
   <!-- History: date format for items. EEEE = day (Monday), MMMM = month (January), yyyy = year (1970), HH = hour (12), mm = minutes (30) -->
@@ -72,4 +80,10 @@
   <!-- Favorite: edit dialog button that deletes the selected favorite -->
   <!-- Favorite: edit dialog: invalid url error message -->
   <!-- No activity found to open the given url error -->
+  <!-- Auth dialog: title -->
+  <!-- Auth dialog: username field -->
+  <!-- Auth dialog: password field -->
+  <!-- Auth dialog: detail -->
+  <!-- Auth dialog: login button -->
+  <!-- Launcher shortcut: new incognito tab -->
 </resources>

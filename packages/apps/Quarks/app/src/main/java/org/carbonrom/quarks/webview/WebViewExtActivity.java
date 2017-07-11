@@ -20,7 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 
 public abstract class WebViewExtActivity extends AppCompatActivity {
 
-    public abstract void downloadFileAsk(String url, String fileName);
+    public abstract void downloadFileAsk(String url, String contentDisposition, String mimeType);
 
     public abstract boolean hasLocationPermission();
 
@@ -28,6 +28,7 @@ public abstract class WebViewExtActivity extends AppCompatActivity {
 
     public abstract void showSheetMenu(String url, boolean shouldAllowDownload);
 
-    public abstract void setColor(Bitmap favicon, boolean incognito);
-    public abstract void setFavicon();
+    public abstract void onThemeColorSet(int color);
+
+    public abstract void onFaviconLoaded(Bitmap favicon);
 }

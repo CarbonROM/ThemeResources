@@ -29,8 +29,20 @@ public final class PrefsUtils {
     private static final String KEY_JS = "key_javascript";
     private static final String KEY_LOCATION = "key_location";
     private static final String KEY_COOKIE = "key_cookie";
+    private static final String KEY_DO_NOT_TRACK = "key_do_not_track";
+    private static final String KEY_SAVE_FORM_DATA = "key_save_form_data";
+    private static final String KEY_SUGGESTION_PROVIDER = "key_suggestion_provider";
     private static final String KEY_INCOGNITO_POLICY = "key_incognito_policy";
     private static final String KEY_ADBLOCKER = "key_adblocker";
+
+    public enum SuggestionProviderType {
+        BAIDU,
+        BING,
+        DUCK,
+        GOOGLE,
+        YAHOO,
+        NONE
+    }
 
     private PrefsUtils() {
     }
@@ -71,7 +83,30 @@ public final class PrefsUtils {
         return prefs.getBoolean(KEY_COOKIE, true);
     }
 
-    public static int getIncognitoPolicy(Context context)  {
+    public static boolean getDoNotTrack(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getBoolean(KEY_DO_NOT_TRACK, false);
+    }
+
+    public static boolean getSaveFormData(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getBoolean(KEY_SAVE_FORM_DATA, true);
+    }
+
+    public static SuggestionProviderType getSuggestionProvider(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        try {
+            String value = prefs.getString(KEY_SUGGESTION_PROVIDER, null);
+            if (value == null) {
+                value = context.getString(R.string.default_suggestion_provider);
+            }
+            return SuggestionProviderType.valueOf(value);
+        } catch (IllegalArgumentException ignored) {
+            return SuggestionProviderType.NONE;
+        }
+    }
+
+    public static int getIncognitoPolicy(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return Integer.parseInt(prefs.getString(KEY_INCOGNITO_POLICY, "0"));
     }

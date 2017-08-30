@@ -142,8 +142,6 @@ cd values
 delete_useless ${values[@]}
 rm -rf  $WORKING_DIR/ThemeResources/frameworks
 cd $WORKING_DIR
-cd packages/apps/CMUpdater
-delete_useless ${common[@]}
 cd $WORKING_DIR/packages/apps/Quarks
 delete_useless ${common[@]}
 cd $WORKING_DIR/packages/apps/Quarks/app
@@ -158,7 +156,6 @@ mkdir ThemeResources/packages
 mkdir ThemeResources/packages/apps
 mkdir ThemeResources/frameworks
 echo "Copying all files to $WORKING_DIR/ThemeResources"
-cp -r $WORKING_DIR/packages/apps/CMUpdater $WORKING_DIR/ThemeResources/packages/apps/
 copy_all ${theme_packages[@]}
 cp -r $WORKING_DIR/frameworks/base/core $WORKING_DIR/frameworks/base/packages $WORKING_DIR/ThemeResources/frameworks
 cp -r $WORKING_DIR/packages/apps/Quarks $WORKING_DIR/ThemeResources/packages/apps/

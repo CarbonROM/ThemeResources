@@ -62,12 +62,15 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.CookieManager;
 import android.webkit.URLUtil;
+import android.webkit.WebChromeClient;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -79,6 +82,7 @@ import org.carbonrom.quarks.favorite.FavoriteActivity;
 import org.carbonrom.quarks.favorite.FavoriteDatabaseHandler;
 import org.carbonrom.quarks.history.HistoryActivity;
 import org.carbonrom.quarks.suggestions.SuggestionsAdapter;
+import org.carbonrom.quarks.ui.SearchBarController;
 import org.carbonrom.quarks.utils.AdBlocker;
 import org.carbonrom.quarks.utils.PrefsUtils;
 import org.carbonrom.quarks.utils.UiUtils;
@@ -91,7 +95,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class MainActivity extends WebViewExtActivity implements View.OnTouchListener,
-        View.OnScrollChangeListener {
+        View.OnScrollChangeListener, SearchBarController.OnCancelListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String PROVIDER = "org.carbonrom.quarks.fileprovider";
     private static final String EXTRA_INCOGNITO = "extra_incognito";
@@ -123,6 +127,7 @@ public class MainActivity extends WebViewExtActivity implements View.OnTouchList
     private CoordinatorLayout mCoordinator;
     private WebViewExt mWebView;
     private ProgressBar mLoadingProgress;
+    private SearchBarController mSearchController;
     private boolean mHasThemeColorSupport;
     private Drawable mLastActionBarDrawable;
     private int mThemeColor;
@@ -141,6 +146,9 @@ public class MainActivity extends WebViewExtActivity implements View.OnTouchList
     private boolean mGestureOngoing = false;
     private boolean mIncognito;
     private boolean nightMode;
+
+    private View mCustomView;
+    private WebChromeClient.CustomViewCallback mFullScreenCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -255,6 +263,14 @@ public class MainActivity extends WebViewExtActivity implements View.OnTouchList
         mWebView.setOnTouchListener(this);
         mWebView.setOnScrollChangeListener(this);
 
+        mSearchController = new SearchBarController(mWebView,
+                (EditText) findViewById(R.id.search_menu_edit),
+                (TextView) findViewById(R.id.search_status),
+                (ImageButton) findViewById(R.id.search_menu_prev),
+                (ImageButton) findViewById(R.id.search_menu_next),
+                (ImageButton) findViewById(R.id.search_menu_cancel),
+                this);
+
         applyThemeColor(mThemeColor);
 
         try {
@@ -305,7 +321,10 @@ public class MainActivity extends WebViewExtActivity implements View.OnTouchList
 
     @Override
     public void onBackPressed() {
-        if (mWebView.canGoBack()) {
+        mSearchController.onCancel();
+        if (mCustomView != null) {
+            onHideCustomView();
+        } else if (mWebView.canGoBack()) {
             mWebView.goBack();
         } else {
             super.onBackPressed();
@@ -397,6 +416,10 @@ public class MainActivity extends WebViewExtActivity implements View.OnTouchList
                         // Delay a bit to allow popup menu hide animation to play
                         new Handler().postDelayed(() -> shareUrl(mWebView.getUrl()), 300);
                         break;
+                    case R.id.menu_search:
+                        // Run the search setup
+                        showSearch();
+                        break;
                     case R.id.menu_favorite:
                         startActivity(new Intent(this, FavoriteActivity.class));
                         break;
@@ -450,6 +473,18 @@ public class MainActivity extends WebViewExtActivity implements View.OnTouchList
             //noinspection RestrictedApi
             helper.show();
         });
+    }
+
+    private void showSearch() {
+        findViewById(R.id.toolbar_search_bar).setVisibility(View.GONE);
+        findViewById(R.id.toolbar_search_page).setVisibility(View.VISIBLE);
+        mSearchController.onShow();
+    }
+
+    @Override
+    public void onCancelSearch() {
+        findViewById(R.id.toolbar_search_page).setVisibility(View.GONE);
+        findViewById(R.id.toolbar_search_bar).setVisibility(View.VISIBLE);
     }
 
     private void openInNewTab(String url, boolean incognito) {
@@ -548,11 +583,23 @@ public class MainActivity extends WebViewExtActivity implements View.OnTouchList
         View favouriteLayout = view.findViewById(R.id.sheet_favourite);
         View downloadLayout = view.findViewById(R.id.sheet_download);
 
-        tabLayout.setOnClickListener(v -> openInNewTab(url, mIncognito));
-        shareLayout.setOnClickListener(v -> shareUrl(url));
-        favouriteLayout.setOnClickListener(v -> setAsFavorite(url, url));
+        tabLayout.setOnClickListener(v -> {
+            openInNewTab(url, mIncognito);
+            sheet.dismiss();
+        });
+        shareLayout.setOnClickListener(v -> {
+            shareUrl(url);
+            sheet.dismiss();
+        });
+        favouriteLayout.setOnClickListener(v -> {
+            setAsFavorite(url, url);
+            sheet.dismiss();
+        });
         if (shouldAllowDownload) {
-            downloadLayout.setOnClickListener(v -> downloadFileAsk(url, null, null));
+            downloadLayout.setOnClickListener(v -> {
+                downloadFileAsk(url, null, null);
+                sheet.dismiss();
+            });
             downloadLayout.setVisibility(View.VISIBLE);
         }
         sheet.setContentView(view);
@@ -665,6 +712,39 @@ public class MainActivity extends WebViewExtActivity implements View.OnTouchList
         mFavicon.setImageBitmap(mUrlIcon);
     }
 
+    @Override
+    public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
+        if (mCustomView != null) {
+            callback.onCustomViewHidden();
+            return;
+        }
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        mCustomView = view;
+        mFullScreenCallback = callback;
+        setImmersiveMode(true);
+        mCustomView.setBackgroundColor(ContextCompat.getColor(this, android.R.color.black));
+        addContentView(mCustomView, new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        findViewById(R.id.app_bar_layout).setVisibility(View.GONE);
+        mSwipeRefreshLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onHideCustomView() {
+        if (mCustomView == null) {
+            return;
+        }
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        setImmersiveMode(false);
+        findViewById(R.id.app_bar_layout).setVisibility(View.VISIBLE);
+        mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+        ViewGroup viewGroup = (ViewGroup) mCustomView.getParent();
+        viewGroup.removeView(mCustomView);
+        mFullScreenCallback.onCustomViewHidden();
+        mFullScreenCallback = null;
+        mCustomView = null;
+    }
+
     private void addShortcut() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.setData(Uri.parse(mWebView.getUrl()));
@@ -735,5 +815,27 @@ public class MainActivity extends WebViewExtActivity implements View.OnTouchList
                 break;
         }
         return true;
+    }
+
+    private void setImmersiveMode(boolean enable) {
+        int flags = getWindow().getDecorView().getSystemUiVisibility();
+        int immersiveModeFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        if (enable) {
+            flags |= immersiveModeFlags;
+        } else {
+            flags &= ~immersiveModeFlags;
+        }
+        getWindow().getDecorView().setSystemUiVisibility(flags);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        setImmersiveMode(hasFocus && mCustomView != null);
     }
 }

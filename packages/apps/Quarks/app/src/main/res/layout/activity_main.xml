@@ -32,6 +32,7 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -60,6 +61,14 @@
                     android:progress="54" />
 
                 <include
+                    android:id="@+id/toolbar_search_page"
+                    layout="@layout/search_page"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/toolbar_search_bar"
                     layout="@layout/search_bar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
